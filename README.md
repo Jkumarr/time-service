@@ -11,12 +11,13 @@ A .NET real-time Web API demo.
 - REST API to get the current server time
 - Real-time time updates (optional)
 - Simple, clean .NET project structure
+- **Unit test project included** (see below)
 
 ## Getting Started
 
 ### Prerequisites
 
-- [.NET 6 SDK or later](https://dotnet.microsoft.com/download)
+- [.NET 9 SDK or later](https://dotnet.microsoft.com/download)
 - Git
 
 ### Setup
@@ -34,10 +35,10 @@ A .NET real-time Web API demo.
 
 3. Run the application:
     ```sh
-    dotnet run
+    dotnet run --project src/time-service/time-service.csproj
     ```
 
-4. The API will be available at `https://localhost:5001` or `http://localhost:5000`.
+4. The API will be available at `https://localhost:5001` or `http://localhost:5000` (see launch output for actual port).
 
 ## Example API Usage
 
@@ -46,7 +47,6 @@ You can use the included `time-service.http` file to test the API endpoints dire
 ### Example from `time-service.http`
 
 ```
-### Get current server time
 GET http://localhost:5000/time
 Accept: application/json
 ```
@@ -58,14 +58,34 @@ To use:
 **Expected Response:**
 ```json
 {
-  "currentTime": "2025-06-22T12:34:56Z"
+  "currentTime": "2025-06-22T12:34:56Z",
+  "timeZone": "UTC"
 }
 ```
 
+## Running Tests
+
+This solution includes a unit test project using xUnit:
+
+- To run all tests:
+  ```sh
+  dotnet test
+  ```
+- To run only the test project:
+  ```sh
+  dotnet test tests/TimeService.Tests/TimeService.Tests.csproj
+  ```
+
+Test output will indicate the number of tests run and their status.
+
 ## Project Structure
 
-- `Program.cs` - Application entry point and configuration
+- `src/time-service/Program.cs` - Application entry point and configuration
+- `src/time-service/time-service.csproj` - Main API project
+- `src/time-service/appsettings.json` - Application configuration
+- `src/time-service/appsettings.Development.json` - Development configuration
 - `time-service.http` - Sample HTTP requests for testing the API
+- `tests/TimeService.Tests/` - Unit test project (xUnit)
 - `README.md` - Project documentation
 
 ## Contributing
